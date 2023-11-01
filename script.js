@@ -17,11 +17,8 @@ const init = function () {
 };
 
 const redactText = function (content, wordsToRedact, redactionStyle) {
-  const redactionWordsArr = wordsToRedact
-    .split(" ")
-    .map((word) => word.toLowerCase().trim());
-
-  const regex = new RegExp(`\\b(${redactionWordsArr.join("|")})\\b`, "gi");
+  // Regex for case-insensitive exact word match
+  const regex = new RegExp(`\\b(${wordsToRedact.join("|")})\\b`, "gi");
   const result = content.replace(regex, function (x) {
     redactedWordCount += 1;
     return `<span class='highlight'>${redactionStyle}</span>`;
@@ -39,18 +36,36 @@ const copyToClipboard = async function (e) {
   }
 };
 
+const showError = function (isError = true) {
+  const wrapper = this.closest(".form__input-wrapper");
+  isError
+    ? wrapper.classList.add("failed")
+    : wrapper.classList.remove("failed");
+};
+
 init();
 
 // EVENT LISTENERS
 redactBtn.addEventListener("click", function (e) {
   e.preventDefault();
 
+  // retaining the line breaks in content
   const content = contentField.value.replace(/\n/g, "<br>\n");
   const redactionWords = redactionWordField.value.trim();
   const redactionOption = redactionStyleField.value;
 
   if (!content || !redactionWords) {
-    // Error Handling
+    !content && showError.bind(contentField)();
+    !redactionWords && showError.bind(redactionWordField)();
+    return;
+  }
+
+  const redactionWordsArr = redactionWords
+    .split(" ")
+    .map((word) => word.toLowerCase().trim());
+
+  if (redactionWordsArr.some((word) => !word.match(/^[A-Za-z0-9]+$/))) {
+    showError.bind(redactionWordField)();
     return;
   }
 
@@ -62,7 +77,11 @@ redactBtn.addEventListener("click", function (e) {
         ? redactionOption.repeat(5)
         : redactionOption;
 
-  resultDisplay.innerHTML = redactText(content, redactionWords, redactionStyle);
+  resultDisplay.innerHTML = redactText(
+    content,
+    redactionWordsArr,
+    redactionStyle
+  );
 
   const end = performance.now();
 
@@ -73,3 +92,9 @@ redactBtn.addEventListener("click", function (e) {
 });
 
 copyBtn.addEventListener("click", copyToClipboard);
+
+[contentField, redactionWordField].forEach((field) =>
+  field.addEventListener("blur", function () {
+    if (field.value) showError.bind(this, false)();
+  })
+);

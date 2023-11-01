@@ -90,7 +90,22 @@ body {
   box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.2);
 }
 .form__input-wrapper {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+.form__input-warning {
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.form__input-wrapper.failed .form__input {
+  border-color: #fa5252;
+  box-shadow: 0 0 0 3px rgba(250, 82, 82, 0.2);
+}
+.form__input-wrapper.failed .form__input-warning {
+  color: #fa5252;
+  opacity: 1;
 }
 
 .btn {
@@ -176,7 +191,7 @@ body {
 }
 
 .muted {
-  font-size: 14px;
+  font-weight: 400;
   color: #adb5bd;
 }
 

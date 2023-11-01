@@ -37,6 +37,9 @@
                 rows="10"
                 placeholder="Type or paste text here..."
               ></textarea>
+              <p class="form__input-warning" id="content-warning">
+                Please enter or paste content to redact
+              </p>
             </div>
             <div class="form__input-wrapper" id="redaction-words-field-wrapper">
               <label for="redaction-words" class="form__label"
@@ -48,10 +51,14 @@
                 id="redaction-words"
                 placeholder="Enter words separated by spaces"
               />
+              <p class="form__input-warning" id="redaction-words-warning">
+                Please enter alphanumeric words, separated by spaces
+              </p>
             </div>
             <div class="form__input-wrapper" id="redaction-style-field-wrapper">
               <label for="redaction-style" class="form__label"
-                >Redaction Style <span class="muted">(optional, default: *)</span></label
+                >Redaction Style
+                <span class="muted">(optional, default: *)</span></label
               >
               <input
                 list="redaction-style-options"

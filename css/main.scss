@@ -11,6 +11,7 @@ $color-gray-light: #495057;
 $color-gray-lighter: #adb5bd;
 $color-white: #fff;
 $color-highlight: #ffec99;
+$color-error: #fa5252;
 
 $br-sm: 6px;
 
@@ -19,6 +20,11 @@ $br-sm: 6px;
   color: $color-gray;
   line-height: 1;
   margin-bottom: 8px;
+}
+
+@mixin field-shadow($color) {
+  border-color: $color;
+  box-shadow: 0 0 0 3px rgba($color, 0.2);
 }
 
 *,
@@ -107,12 +113,28 @@ body {
     transition: all 0.3s;
 
     &:focus {
-      border-color: $color-blue;
-      box-shadow: 0 0 0 3px rgba($color-blue, 0.2);
+      @include field-shadow($color-blue);
     }
 
     &-wrapper {
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    &-warning {
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 1;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    &-wrapper.failed & {
+      @include field-shadow($color-error);
+    }
+
+    &-wrapper.failed &-warning {
+      color: $color-error;
+      opacity: 1;
     }
   }
 }
@@ -218,7 +240,7 @@ body {
 }
 
 .muted {
-  font-size: 14px;
+  font-weight: 400;
   color: $color-gray-lighter;
 }
 
