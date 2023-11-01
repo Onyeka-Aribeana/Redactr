@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Redactr</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="header__logo">
+          [<span class="header__logo-text">Redactr</span>]
+        </h1>
+        <p class="header__text">
+          Protect your sensitive information and share content securely with
+          Redactr, the ultimate content redaction application.
+        </p>
+      </header>
+      <main class="main">
+        <div class="main__info">
+          <p class="main__info-text">
+            Our user friendly tool allows you to easily redact or obsure words
+            or phrases that you do not want the world to see. Safeguard your
+            confidential documents and social media content in a single click.
+          </p>
+        </div>
+
+        <div class="main__layout">
+          <form action="index.html" class="form" autocomplete="off" novalidate>
+            <div class="form__input-wrapper" id="content-field-wrapper">
+              <label for="content" class="form__label">Enter Text</label>
+              <textarea
+                name="content"
+                id="content"
+                class="form__input"
+                rows="10"
+                placeholder="Type or paste text here..."
+              ></textarea>
+            </div>
+            <div class="form__input-wrapper" id="redaction-words-field-wrapper">
+              <label for="redaction-words" class="form__label"
+                >Words to Redact</label
+              >
+              <input
+                name="redaction-words"
+                class="form__input"
+                id="redaction-words"
+                placeholder="Specify words to redact"
+              />
+            </div>
+            <div class="form__input-wrapper" id="redaction-style-field-wrapper">
+              <label for="redaction-style" class="form__label"
+                >Redaction Style</label
+              >
+              <input
+                list="redaction-style-options"
+                class="form__input"
+                id="redaction-style"
+                name="redaction-style"
+                placeholder=""
+              />
+              <datalist id="redaction-style-options">
+                <option value="*">Asterisk</option>
+                <option value="?">Question Mark</option>
+                <option value="-">Dash</option>
+                <option value="_">Underscore</option>
+              </datalist>
+            </div>
+            <input
+              type="submit"
+              id="submit-btn"
+              class="btn btn--text"
+              value="Redact"
+            />
+          </form>
+          <div class="result">
+            <p class="result__label">Redacted Text</p>
+            <div class="result__info">
+              <div class="result__text">
+                Click <span class="highlight">"Redact"</span> to see results
+              </div>
+              <div class="result__stats">
+                <div class="result__stat">
+                  <p>Words redacted</p>
+                  <p class="result__stat-text" id="redacted-word-count">0</p>
+                </div>
+                <div class="result__stat">
+                  <p>Duration</p>
+                  <p class="result__stat-text" id="redacted-duration">0 ms</p>
+                </div>
+                <button class="btn btn--icon" id="copy-btn" data-type="Copy">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
