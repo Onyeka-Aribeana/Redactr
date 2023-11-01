@@ -217,6 +217,11 @@ body {
   }
 }
 
+.muted {
+  font-size: 14px;
+  color: $color-gray-lighter;
+}
+
 .highlight {
   background-color: $color-highlight;
   border-radius: $br-sm;

@@ -175,6 +175,11 @@ body {
   font-weight: 600;
 }
 
+.muted {
+  font-size: 14px;
+  color: #adb5bd;
+}
+
 .highlight {
   background-color: #ffec99;
   border-radius: 6px;
