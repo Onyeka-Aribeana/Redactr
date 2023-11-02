@@ -55,8 +55,8 @@ redactBtn.addEventListener("click", function (e) {
   const redactionOption = redactionStyleField.value;
 
   if (!content || !redactionWords) {
-    !content && showError.bind(contentField)();
-    !redactionWords && showError.bind(redactionWordField)();
+    !content && showError.call(contentField);
+    !redactionWords && showError.call(redactionWordField);
     return;
   }
 
@@ -65,7 +65,7 @@ redactBtn.addEventListener("click", function (e) {
     .map((word) => word.toLowerCase().trim());
 
   if (redactionWordsArr.some((word) => !word.match(/^[A-Za-z0-9]+$/))) {
-    showError.bind(redactionWordField)();
+    showError.call(redactionWordField);
     return;
   }
 
@@ -95,6 +95,6 @@ copyBtn.addEventListener("click", copyToClipboard);
 
 [contentField, redactionWordField].forEach((field) =>
   field.addEventListener("blur", function () {
-    if (field.value) showError.bind(this, false)();
+    if (field.value) showError.call(this, false);
   })
 );
