@@ -13,7 +13,7 @@ let redactedWordCount,
 
 const init = function () {
   redactedWordCount = 0;
-  redactionStyle = "*****"; // default
+  redactionStyle = "*"; // default
 };
 
 const redactText = function (content, wordsToRedact, redactionStyle) {
@@ -21,7 +21,11 @@ const redactText = function (content, wordsToRedact, redactionStyle) {
   const regex = new RegExp(`\\b(${wordsToRedact.join("|")})\\b`, "gi");
   const result = content.replace(regex, function (x) {
     redactedWordCount += 1;
-    return `<span class='highlight'>${redactionStyle}</span>`;
+    return `<span class='highlight'>${
+      redactionStyle.length === 1 && redactionStyle.match(/[^a-z0-9]/i)
+        ? redactionStyle.repeat(x.length)
+        : redactionStyle
+    }</span>`;
   });
   return result;
 };
@@ -52,7 +56,7 @@ redactBtn.addEventListener("click", function (e) {
   // retaining the line breaks in content
   const content = contentField.value.replace(/\n/g, "<br>\n");
   const redactionWords = redactionWordField.value.trim();
-  const redactionOption = redactionStyleField.value;
+  const redactionOption = redactionStyleField.value.trim();
 
   if (!content || !redactionWords) {
     !content && showError.call(contentField);
@@ -71,11 +75,7 @@ redactBtn.addEventListener("click", function (e) {
 
   const start = performance.now();
 
-  if (redactionOption)
-    redactionStyle =
-      redactionOption.length === 1
-        ? redactionOption.repeat(5)
-        : redactionOption;
+  if (redactionOption) redactionStyle = redactionOption;
 
   resultDisplay.innerHTML = redactText(
     content,
