@@ -8,8 +8,7 @@ const resultDisplay = document.querySelector(".result__text");
 const copyBtn = document.getElementById("copy-btn");
 
 let redactedWordCount,
-  redactionStyle,
-  isRedacted = false;
+  redactionStyle;
 
 const init = function () {
   redactedWordCount = 0;
@@ -33,7 +32,7 @@ const redactText = function (content, wordsToRedact, redactionStyle) {
 const copyToClipboard = async function (e) {
   e.preventDefault();
 
-  if (isRedacted) {
+  if (resultDisplay.textContent.trim() !== 'Click "Redact" to see results') {
     await navigator.clipboard.writeText(resultDisplay.textContent);
     copyBtn.dataset.type = "Copied!";
     setTimeout(() => (copyBtn.dataset.type = "Copy"), 1000);
@@ -87,7 +86,6 @@ redactBtn.addEventListener("click", function (e) {
 
   wordCountElem.textContent = redactedWordCount;
   durationElem.textContent = (end - start).toFixed(2) + " ms";
-  isRedacted = true;
   init();
 });
 
